@@ -1,0 +1,13 @@
+## Methode pour trouver le flag ##
+/*
+*   Format:
+*   - Objectif
+*   commande
+*       -> resultat
+*/
+
+- Prise d'information sur flag01
+cat /etc/passwd
+    -> flag01, seul avec un texte visible pour le mot de passe
+
+- Decrypter le hash (trouver comment)

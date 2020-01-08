@@ -1,0 +1,30 @@
+## Methode pour trouver le flag ##
+/*
+*   Format:
+*   - Objectif
+*   commande
+*       -> resultat
+*/
+
+
+- On cherche des informations sur flag00:
+cat /etc/passwd 
+    -> flag00 est un user
+
+- Ensuite on cherche les fichiers dont il est proprietaires:
+find / -user flag00 2>&1 | grep -v 'denied'
+    -> 1 fichier: /usr/sbin/john
+
+- Aficher son contenu:
+cat /usr/sbin/john
+    -> cdiiddwpgswtgtdfs 
+
+- Dechiffrer: cela ressemble à un chiffrage par décallage de lettres
+    on va tester un des plus connu: chiffre de cesar: https://www.dcode.fr/chiffre-cesar.
+    En testant en brute force, on teste tous les decalages possibles.
+    -> decalage de +15: nottoohardhere
+
+- On se connecte avec ce code sur flag00 (ca fonctionne):
+su flag00; password nottoohardhere; getflag
+    -> flag: x24ti5gi3x0ol2eh4esiuxias
+
