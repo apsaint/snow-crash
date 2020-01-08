@@ -10,4 +10,10 @@
 cat /etc/passwd
     -> flag01, seul avec un texte visible pour le mot de passe
 
-- Decrypter le hash (trouver comment)
+- Récupérer la ligne compléte de flag01 et la mettre dans fichier
+cat /etc/passwd | grep flag01 > pass
+    -> flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
+
+- Decrypter le mot de passe avec un logiciel (Here comes Johnny ;))
+aptitude install john ; john pass
+    -> Done
