@@ -1,0 +1,42 @@
+## Methode pour trouver le flag ##
+/*
+*   Format:
+*   - Objectif
+*   commande
+*       -> resultat
+*/
+
+- Prise d'information
+ls
+    -> il y a un fichier level02.pcap
+
+- recherche sur internet
+    -> https://www.reviversoft.com/fr/file-extensions/pcap 
+        -> il faut faire appel à des logiciels particuliers pour ouvrir ces fichiers
+
+- extraire le fichier par scp depuis le terminal local
+scp -P 4242 level02@10.11.200.98:level02.pcap ~/
+    -> fichier copier dans mon home
+
+- donner 100% des droits à la copie du fichier et envoyer la copie sur une vm contenant wireshark
+chmod 777 level02.pcap ; scp level02.pcap user@10.11.200.216:/home/user
+    -> fichier level02.pcap dans la vm
+
+- utiliser wireshark et afficher le contenu du tcp stream et l'enregistrer dans un fichier
+    -> wireshark file:
+/*
+��%��%��&���� ��#��'��$��&���� ��#��'��$�� ����#����'�������� 38400,38400����#SodaCan:0����'DISPLAYSodaCan:0����xterm��������"������!������"��"bb       B
+
+ �����������1������!��"����"����!��������"������"��"���	�
+�
+  �����������
+Linux 2.6.38-8-generic-pae (::ffff:10.1.1.2) (pts/10)
+
+wwwbugs login: lleevveellXX
+Password: ft_wandr    NDRel L0L
+
+Login incorrect
+wwwbugs login: %
+*/
+
+- Mot de passe trouver!
