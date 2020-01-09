@@ -1,0 +1,22 @@
+## Methode pour trouver le flag ##
+/*
+*   Format:
+*   - Objectif
+*   commande
+*       -> resultat
+*/
+
+J avais reperé precedement qu il y avait un dossier level04 dans /var/mail donc je savais qu il fallait utiliser le mail.
+
+- recuperation d'informations
+find / -user flag05 2>&1 | grep -v 'denied'
+    -> 1 fichier: /usr/sbin/openarenaserver
+
+- contenu:
+cat /usr/sbin/openarenaserver:
+    ->
+    #!/bin/sh
+    for i in /opt/openarenaserver/* ; do
+	    (ulimit -t 5; bash -x "$i")
+	    rm -f "$i"
+    done

