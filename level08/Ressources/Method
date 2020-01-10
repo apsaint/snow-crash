@@ -1,0 +1,32 @@
+## Methode pour trouver le flag ##
+/*
+*   Format:
+*   - Objectif
+*   commande
+*       -> resultat
+*/
+
+
+En observant avec gdb et plus precisement les disassemble, on remarque que le probleme vient du nom de fichier.
+En effet, le programme cherche la string token dans le nom du fichier.
+Il suffit donc de lui renommer le fichier ou creer une copie avec un autre nom qui nous appartient pour pouvoir l ouvrir.
+En cherchant et me rappelant de differents elements du shell, on peut creer un lien symbolique de token /tmp/getflag
+car on aura les droits dessus et open ne verifie les droits finaux du lien.
+
+- execution de la solution
+ln -s token /tmp/getflag; ./level08 /tmp/getflag
+    -> quif5eloekouj29ke0vouxean
+
+- En essayant plusieurs fois au level09 directement on peut, pas du coup on essaye le user flag08
+su flag08; password: quif5eloekouj29ke0vouxean
+    -> on reussit à se connecter donc il reste plus que le getflag a faire
+
+getflag
+    -> Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
+
+
+Attention au permission du dossier tmp qui sont capricieuses.
+
+Sources:
+    - https://beta.hackndo.com/assembly-basics/
+    -

