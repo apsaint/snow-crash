@@ -6,9 +6,9 @@
 *       -> resultat
 */
 
-- un fichier level13 executable, on l execute:
+- un fichier level13 éxecutable, on l'éxecute:
 ./level13
-    -> UID 2013 started us but we we expect 4242!
+    -> UID 2013 started us but we expect 4242!
 On va donc essayer de voir comment est construit le programme avec gdb!
 
 - On utilise gdb pour en savoir plus:
@@ -16,7 +16,7 @@ gdb level13
 set disassembly-flavor intel
 break *main
 run
-    -> On ca qui s affiche:
+    -> On a ça qui s'affiche:
     (gdb) break *main
     Breakpoint 2 at 0x804858c
     (gdb) run
@@ -28,8 +28,8 @@ run
     0x0804858f <+3>:	and    esp,0xfffffff0
     0x08048592 <+6>:	sub    esp,0x10
     0x08048595 <+9>:	call   0x8048380 <getuid@plt>
-    0x0804859a <+14>:	cmp    eax,0x1092               -> comparaison -> surement celle qui conditionne le main et qui utilise le resultat de getuid 
-    0x0804859f <+19>:	je     0x80485cb <main+63>      -> je signifie que si cest egale on execute la suite
+    0x0804859a <+14>:	cmp    eax,0x1092               -> comparaison qui conditionne le main et qui utilise le résultat de getuid 
+    0x0804859f <+19>:	je     0x80485cb <main+63>      -> je signifie que si c'est égale on éxecute la suite
     0x080485a1 <+21>:	call   0x8048380 <getuid@plt>
     0x080485a6 <+26>:	mov    edx,0x80486c8
     0x080485ab <+31>:	mov    DWORD PTR [esp+0x8],0x1092
@@ -48,7 +48,8 @@ run
     0x080485e9 <+93>:	ret
     End of assembler dump.
 
-- On va donc essaye de contourner la comparaison qui securise le main. On place un break sur le call juste avant et on execute jusque la avant de faire un jump vers le main:
+- On va donc essayer de contourner la comparaison qui sécurise le main. 
+On place un break sur le call juste avant et on éxecute jusque là avant de faire un jump vers le main:
 break *0x8048380
 Continuing.
 Breakpoint 3, 0x08048380 in getuid@plt ()
