@@ -6,7 +6,7 @@
 *       -> resultat
 */
 
-J avais reperé precedement qu il y avait un dossier level04 dans /var/www donc je savais qu il fallait utiliser le web.
+J'avais reperé précédemment qu'il y avait un dossier level04 dans /var/www donc je savais qu'il fallait utiliser le web.
 
 - un fichier perl dans le repertoire:
 cat level04.pl
