@@ -4,19 +4,22 @@
 */
 
 # include <stdio.h>
-# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 int main(int ac, char **av)
 {
-        char *codeCrypt = av[1];
+        char *file = av[1];
+        int fp;
         int i = 0;
-        int c;
 
-        while(codeCrypt[i])
+        fp = open(file, O_RDONLY);
+        read(fp, str, 25);
+        while(i < 25)
         {
-                c = codeCrypt[i];
-                c -= i;
-                printf("%c", c);
+                printf("%c", str[i] - i);
                 i++;
         }
+        printf("\n");
 }
