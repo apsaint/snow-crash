@@ -1,9 +1,6 @@
-## Methode pour trouver le flag ##
 /*
-*   Format:
-*   - Objectif
-*   commande
-*       -> resultat
+*  Ce script permet de modifier la string envoye en parametre.
+*  On decale chaque caractere de x lettre ou x est la position du caractere dans la string.
 */
 
 # include <stdio.h>
