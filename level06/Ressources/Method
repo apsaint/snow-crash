@@ -38,7 +38,7 @@ Ainsi on commence à voir ce qu'il faut mettre dans le fichier /tmp/get
 
 
 - On tente une exécution:
-echo '[ x `getflag`]' > /tmp/get; ./level06 /tmp/get
+echo '[x `getflag`]' > /tmp/get; ./level06 /tmp/get
     -> affiche `getflag` donc on est sur le bon chemin mais il ne fait qu'afficher pour l'instant, cherchons une façon d'exécuter la commande
 
 ${`cmd`} permet de substituer la string au resultat de cmd.
