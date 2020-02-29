@@ -14,7 +14,7 @@ En cherchant et me rappelant de differents élements du shell, on peut créer un
 car on aura les droits dessus et la fonction open ne vérifie pas les droits finaux du lien.
 
 - execution de la solution
-ln -s token /tmp/getflag; ./level08 /tmp/getflag
+ln -s ~/token /tmp/getflag; ./level08 /tmp/getflag
     -> quif5eloekouj29ke0vouxean
 
 - En essayant plusieurs fois au level09 directement on peut, pas du coup on essaye le user flag08
@@ -26,4 +26,4 @@ getflag
 
 Sources:
     - https://beta.hackndo.com/assembly-basics/
-    -
+    - https://security.web.cern.ch/security/recommendations/en/codetools/c.shtml
