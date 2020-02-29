@@ -12,6 +12,7 @@ int main(int ac, char **av)
 {
         char *file = av[1];
         int fp;
+        char str[25];
         int i = 0;
 
         fp = open(file, O_RDONLY);
