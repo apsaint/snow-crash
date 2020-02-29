@@ -6,8 +6,6 @@
 *       -> resultat
 */
 
-J'avais repéré précédemment qu'il y avait un dossier level04 dans /var/mail donc je savais qu'il fallait utiliser le mail.
-
 - récupération d'informations
 find / -user flag05 2>&1 | grep -v 'denied'
     -> 1 fichier: /usr/sbin/openarenaserver
