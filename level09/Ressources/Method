@@ -19,11 +19,11 @@ Il y a donc une protection dans le script pour le nombre d'argument.
 On peut ainsi remarquer le decalage des caracteres ascii en fonctions de la position token -> tpmhr.
 
 Exploitation: Reecrire un script en C qui fait le meme travail sans limitation d'arguments pour pouvoir lui passer le contenu de token.
-Tout d'abord, on determine la taille du de la string a decrypter a aprtir de la taille du fichier token.
+Tout d'abord, on determine la taille du de la string à decrypter en partant de la taille du fichier token.
 Avec un ls -l token, on peut voir que le fichier a une taille 26. 
-Donc il y a 25 caracteres a modifie car on enleve le dernier qui est un \n.
+Donc il y a 25 caracteres a modifie car on enlève le dernier qui est un \n.
 
-- On a ecrit le script C script.c, on le compile puis on l'utilise. Il lit et recupere dans une str le contenu de token.
+- On a écrit le script C script.c, on le compile puis on l'utilise. Il lit et recupère dans une str le contenu de token.
 Et apres il le decrypte.
 ./a.out token
         -> f3iji1ju5yuevaus41q1afiuq
@@ -32,4 +32,4 @@ Et apres il le decrypte.
 su flag09
 Password: f3iji1ju5yuevaus41q1afiuq
 getflag
-        -> token trouve!
+        -> 
