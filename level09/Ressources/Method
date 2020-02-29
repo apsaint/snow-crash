@@ -25,11 +25,11 @@ Donc il y a 25 caracteres a modifie car on enlève le dernier qui est un \n.
 
 - On a écrit le script C script.c, on le compile puis on l'utilise. Il lit et recupère dans une str le contenu de token.
 Et apres il le decrypte.
-./a.out token
+./a.out ~/token
         -> f3iji1ju5yuevaus41q1afiuq
         
 - On se connecte au flag et on fait getflag:
 su flag09
 Password: f3iji1ju5yuevaus41q1afiuq
 getflag
-        -> 
+        -> Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z
