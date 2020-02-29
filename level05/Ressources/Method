@@ -25,7 +25,7 @@ cat /usr/sbin/openarenaserver:
 echo 'getflag > /opt/openarenaserver/flag && sleep 5m' > /opt/openarenaserver/getflag
     -> avec ce script, flag05 appelera getflag et mettra le resultat dans le flag avant de se poser pendant 5 min
 
-- En surveillant le repertoire, on voit apparaitre le fichier flag, on l'affiche
+- En surveillant le repertoire depuis une autre fenêtre, on voit apparaitre le fichier flag, on l'affiche
 cat /opt/openarenaserver/flag
     -> Check flag.Here is your token : viuaaale9huek52boumoomioc
     
